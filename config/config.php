@@ -1,7 +1,7 @@
 <?php
 /**************** Config ********************/
 //root folder
-$config['base'] = '/artemis/';
+$config['base'] = '/1111/';
 
 $config['base_url'] = 'http://127.0.0.1'.$config['base'];
 
@@ -17,7 +17,7 @@ $config['password'] = '';
  * Database name
  * 
  */
-$config['database'] = 'ar_blog';
+$config['database'] = 'blog';
 
 /**
  *  Driver name

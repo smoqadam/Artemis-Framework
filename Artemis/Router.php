@@ -7,7 +7,7 @@
 * @author : Saeed Moqadam zade
 */
 
-class Router
+class Artemis_Router
 {
 	
 	/**
@@ -54,9 +54,9 @@ class Router
 	*@param string base controller
 	*@access public
 	*/
-	public static function init($base_controller)
+	public static function init()
 	{
-		self::$base_controller = $base_controller;
+		self::$base_controller = Artemis_Config::get('base_controller');
 	}
 	
 	/**
@@ -92,7 +92,7 @@ class Router
 			}
 			else
 			{
-				die("Controller Not Found");	
+				throw new Artemis_Exception("Controller 'self::$controller' Not found");	
 			}
 		
 		self::$params = $parts;

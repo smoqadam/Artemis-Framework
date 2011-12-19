@@ -1,12 +1,11 @@
 <?php
 
-class IndexController extends AppController
+class IndexController extends Artemis_Controller
 {
 	function index()
 	{
-		$this->view->post = "Hello Artemis Framework";
+  		$this->view->post = "Hello Artemis Framework";
 		$this->view->view();
-		
 	}
 
 }

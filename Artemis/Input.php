@@ -1,6 +1,6 @@
 <?php
  
-class Input
+class Artemis_Input
 {
 	
 

@@ -3,7 +3,7 @@
 * app/controllers/AppController.php
 **/
 
-class AppController extends Controller
+class AppController extends Artemis_Controller
 {
 	
 }

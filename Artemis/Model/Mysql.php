@@ -1,6 +1,6 @@
 <?php
-require_once('Model/Abstract/Database_Abstract.php');
-class Mysql extends Database_Abstract
+
+class Artemis_Model_Mysql extends Artemis_Model_Abstract implements Artemis_Model_Interface
 {
 	private $table;
 	
@@ -14,7 +14,7 @@ class Mysql extends Database_Abstract
 	
 	private $fields;
 	
-	private $pk = 'id';
+	protected $pk = 'id';
 	
 	protected $validation = array();
 	
@@ -25,36 +25,36 @@ class Mysql extends Database_Abstract
 	 * @param string $pk
 	 * @param array $validation
 	 */
-	function __construct($table , $pk , $validation)
+	function __construct()
 	{
-		$this->table = strtolower($table);
-		$this->pk = $pk;
-		$this->validation = $validation;
+		
+		$this->table = strtolower(get_class($this));
 		
 		$this->connect();
 	}
 	
+	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::connect()
+	 * @see Artemis_Model_Interface::connect()
 	 */
-	function connect()
+	public function connect()
 	{
 		 
-		$this->connection = mysql_connect(Artemis::getConfig('server'),Artemis::getConfig('username'),Artemis::getConfig('password'))
+		$this->connection = mysql_connect(Artemis_Config::get('server'),Artemis_Config::get('username'),Artemis_Config::get('password'))
 		or die(mysql_errno());
 		if($this->connection)
 		{
-			mysql_select_db(Artemis::getConfig('database'));
+			mysql_select_db(Artemis_Config::get('database'));
 		}else 	
 			return false;
 		return true;
 	}
 	
-	/**
-	 * (non-PHPdoc)
-	 * @see Database_Abstract::set_field_name()
-	 */
+/**
+ * (non-PHPdoc)
+ * @see Artemis_Model_Interface::set_field_name()
+ */
 	public function set_field_name()
 	{
 		  $q = "select * from $this->table";
@@ -74,7 +74,7 @@ class Mysql extends Database_Abstract
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::find()
+	 * @see Artemis_Model_Interface::find()
 	 */
 	public function find($fields = array())
 	{
@@ -92,7 +92,7 @@ class Mysql extends Database_Abstract
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::where()
+	 * @see Artemis_Model_Interface::where()
 	 */
 	function where($fields)
 	{
@@ -114,7 +114,7 @@ class Mysql extends Database_Abstract
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::join()
+	 * @see Artemis_Model_Interface::join()
 	 */
 	function join($wiht, $field_table1, $field_table2, $cond=array())
 	{
@@ -135,7 +135,7 @@ class Mysql extends Database_Abstract
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::order()
+	 * @see Artemis_Model_Interface::order()
 	 */
 	function order($order ='id', $dir = 'ASC')
 	{
@@ -157,7 +157,7 @@ class Mysql extends Database_Abstract
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::fetchAll()
+	 * @see Artemis_Model_Interface::fetchAll()
 	 */
 	function fetchAll()
 	{
@@ -179,7 +179,7 @@ class Mysql extends Database_Abstract
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::fetchOne()
+	 * @see Artemis_Model_Interface::fetchOne()
 	 */
 	function fetchOne()
 	{
@@ -193,7 +193,7 @@ class Mysql extends Database_Abstract
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::__call()
+	 * @see Artemis_Model_Interface::__call()
 	 */
 	function __call($method, $args)
 	{
@@ -216,7 +216,7 @@ class Mysql extends Database_Abstract
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::numRows()
+	 * @see Artemis_Model_Interface::numRows()
 	 */
 	function numRows()
 	{
@@ -226,7 +226,7 @@ class Mysql extends Database_Abstract
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::create()
+	 * @see Artemis_Model_Interface::create()
 	 */
 	function create($values = array(), $escape = false)
 	{
@@ -261,7 +261,7 @@ class Mysql extends Database_Abstract
 
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::insert()
+	 * @see Artemis_Model_Interface::insert()
 	 */
 	function insert()
 	{
@@ -286,7 +286,7 @@ class Mysql extends Database_Abstract
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::update()
+	 * @see Artemis_Model_Interface::update()
 	 */
 	public function update($pk_value = false)
 	{
@@ -314,7 +314,7 @@ class Mysql extends Database_Abstract
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Database_Abstract::delete()
+	 * @see Artemis_Model_Interface::delete()
 	 */
 	public function delete($pkValue = 0)
 	{

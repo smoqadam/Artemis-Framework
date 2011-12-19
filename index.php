@@ -1,42 +1,59 @@
 <?php
 require('config/config.php');
+
+/**
+ * Set error reporting
+ */
 error_reporting(E_ALL);
-/******************** Defins ************************ - E_NOTICE*/
+
+ 
+/**
+ * 
+ * set global constants 
+ * 
+ */
 define("ROOT",dirname(__FILE__));
 define("DS",DIRECTORY_SEPARATOR);
 define("BASE",'');
 define("BASE_URL",$config['base_url']);
 define('APP_PATH' , ROOT.DS.'app/');
-
-define("SERVER",$config['server']);
-define("DATABASE",$config['database']);
-define("PASSWORD",$config['password']);
-define("USERNAME",$config['username']);
-
 define('IMG_FOLDER' , BASE_URL.'public/image/');
 define('JS_FOLDER',BASE_URL.'public/js/');
 define('CSS_FOLDER',BASE_URL.'public/css/');
 
-set_include_path("Artemis/");
-require_once('Artemis.php');
-require_once('Object.php');
-require_once('Router.php');
+/**
+ * 
+ * set autoloading to auto load classes
+ * @param string class name
+ */
+function __autoload($class)
+{
+	
+	//create array class path
+	$class = explode('_',$class);
+	//splite class name
+	$className = array_pop($class).'.php';
+	
+	$classPath = implode('/' , $class);
+	
+	include_once($classPath.'/'.$className);
+}
 
-require_once('Model/AppModel.php');
-require_once('Input.php');
-require_once('Controller/Controller.php');
-require_once('View/Template/Template.php');
-
-
+function _p($var) 
+{
+    echo '<pre>';
+    print_r($var);
+    echo '</pre>';
+}
  
+
 /**
 *
 * extract url and load controller and execute action
-*
+* 
 */
-//set base controller
-Router::init(Artemis::getConfig('base_controller'));
-Router::load();
+Artemis_Router::init();
+Artemis_Router::load();
 
  
 

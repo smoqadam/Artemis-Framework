@@ -1,12 +1,11 @@
 <?php
 /**
- * Artemis Framework
+ * Mysql Driver For Artemis Framework
  *
  */
 
 
-require_once('Model/Abstract/Database_Abstract.php');
-class Mysql extends Database_Abstract
+class Artemis_Model_PDO_Mysql extends Artemis_Model_Abstract implements Artemis_Model_Interface
 {
 	private $bindValues;
 	/**
@@ -85,23 +84,30 @@ class Mysql extends Database_Abstract
  	
 		$this->connect();
 	}
-
-	function connect()
+	/**
+	 * 
+	 * Enter description here ...
+	 * @throws Exception
+	 */
+	public function connect()
 	{
 		if(!class_exists('PDO',false))
 			throw new Exception("PHP PDO package is required.");
 
-		$server = Artemis::getConfig('server') ;
-		$username = Artemis::getConfig('username');
-		$password = Artemis::getConfig('password');
-		$database = Artemis::getConfig('database');
+		$server = Artemis_Config::get('server') ;
+		$username = Artemis_Config::get('username');
+		$password = Artemis_Config::get('password');
+		$database = Artemis_Config::get('database');
 			
 		$this->db = new PDO('mysql:host='.$server.';dbname='.$database ,$username, $password);
 
 	}
 
-
-	function set_field_name()
+	/**
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::set_field_name()
+	 */
+	public function set_field_name()
 	{
 		$table = $this->table;
 		//select all fields from $this->table
@@ -119,10 +125,10 @@ class Mysql extends Database_Abstract
 
 
 	}
+	
 	/**
-	 *
-	 * set field name
-	 * @param array $fields
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::find()
 	 */
 	public function find($fields = array())
 	{
@@ -139,9 +145,8 @@ class Mysql extends Database_Abstract
 	}
 
 	/**
-	 *
-	 * set condition to fetch
-	 * @param array $where
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::where()
 	 */
 	public function where($where = array())
 	{
@@ -168,12 +173,8 @@ class Mysql extends Database_Abstract
 	}
 
 	/**
-	 *
-	 * Join tow table
-	 * @param $wiht join with which table
-	 * @param $field_table1 primary key of table one
-	 * @param $field_table2 forign key in table two
-	 * @param $cond WHERE condition
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::join()
 	 */
 	function join($wiht , $field_table1 , $field_table2, $cond = array())
 	{
@@ -197,17 +198,19 @@ class Mysql extends Database_Abstract
 	}
 
 	/**
-	 *
-	 * set ORDER BY in query
-	 * @param $order : order by field
-	 * @param $dir : direction DESC or ASC
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::order()
 	 */
 	function order($order = '',$dir = '')
 	{
 		$this->query .= " ORDER BY $order $dir ";
 		return $this;
 	}
-
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::limit()
+	 */
 	function limit($start , $results)
 	{
 		$this->query .= " LIMIT :start , :results ";
@@ -218,9 +221,8 @@ class Mysql extends Database_Abstract
 	}
 
 	/**
-	 *
-	 * fetch all rows with last query
-	 *
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::fetchAll()
 	 */
 	public function fetchAll()
 	{
@@ -242,33 +244,27 @@ class Mysql extends Database_Abstract
 	}
 
 	/**
-	 *
-	 * fetch one row of last query
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::fetchOne()
 	 */
 	public function fetchOne()
 	{
 		$this->result = $this->db->prepare($this->query);
-
-		foreach($this->bindValues as $key=>$value)
-		{
-			if(is_int($value))
-			$this->result->bindValue($key , $value , PDO::PARAM_INT);
-			else
-			$this->result->bindValue($key , $value);
-		}
+		if(!empty($this->bindValues))
+			foreach($this->bindValues as $key=>$value)
+			{
+				if(is_int($value))
+				$this->result->bindValue($key , $value , PDO::PARAM_INT);
+				else
+				$this->result->bindValue($key , $value);
+			}
 		$this->result->execute();
 		return $this->result->fetch(PDO::FETCH_ASSOC);
 	}
 
 	/**
-	 *
-	 * set dynamic method to find rows with similar function name
-	 *
-	 * this method used to call findBy[fieldName] method.
-	 * the findByID method search a ro with id value
-	 *
-	 * @param method name $method
-	 * @param unknown_type $args
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::__call()
 	 */
 	public function __call( $method, $args )
 	{
@@ -293,8 +289,8 @@ class Mysql extends Database_Abstract
 	}
 
 	/**
-	 *
-	 * return number of rows in last query
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::numRows()
 	 */
 	public function numRows()
 	{
@@ -315,10 +311,8 @@ class Mysql extends Database_Abstract
 
 
 	/**
-	 *
-	 * create $this->cu_fields to pass a array of fields value
-	 * @param $values
-	 * @param $escape
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::create()
 	 */
 	public function create($values = array(), $escape = false)
 	{
@@ -354,8 +348,8 @@ class Mysql extends Database_Abstract
 	}
 
 	/**
-	 *
-	 * insert values store in $this->cu_fields array
+ 	* (non-PHPdoc)
+	 * @see Artemis_Model_Interface::insert()
 	 */
 	public function insert()
 	{
@@ -379,11 +373,10 @@ class Mysql extends Database_Abstract
 
 
 	/**
-	 *
-	 * update a row
-	 * @param string $pk_value
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::update()
 	 */
-	public function update($pk_value = false)
+	public function update($pk_value = 0)
 	{
 		foreach($this->cu_fields as $field=>$v)
 		{
@@ -396,7 +389,7 @@ class Mysql extends Database_Abstract
 
 		$up = implode(',' , $up);
 
-		$sql = "UPDATE $this->table SET $up WHERE $this->pk = :$this->pk";
+		echo $sql = "UPDATE $this->table SET $up WHERE $this->pk = :$this->pk";
 		$this->cu_fields[$this->pk] = $pk_value;
 
 
@@ -412,9 +405,8 @@ class Mysql extends Database_Abstract
 	}
 
 	/**
-	 *
-	 * Delete a row
-	 * @param $pkValue value of primary key
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::delete()
 	 */
 	public function delete($pkValue = 0)
 	{
@@ -425,12 +417,10 @@ class Mysql extends Database_Abstract
 		$this->result->execute();
 		return true;
 	}
-
+	
 	/**
-	 * return last query
-	 *
-	 *@return string
-	 *@access public
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Abstract::lastQuery()
 	 */
 	public function lastQuery()
 	{

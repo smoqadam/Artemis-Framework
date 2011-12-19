@@ -6,7 +6,7 @@
 * @author : Saeed Moqadam Zade
 **/
  
-class Object
+class Artemis_Object
 {
 
 	function Object()
