@@ -2,21 +2,12 @@
 
 class Artemis_Exception_Exception extends Exception
 {
-    function __constrct($message , $code = null )
+    function __constrct($message)
     {
-        parent::__construct($message , $code );
+    	
+        parent::__construct($message);
     }
     
-    function __toString()
-    {
-        return $this->text($this);
-    }
-    
-    function text(Exception $e)
-    {
-      return sprintf('[%s] : %s ~ %s [ %d ]',
-            get_class($e) , strip_tags($e->getMessage()), $e->getFile(), $e->getLine());
-    
-    }
 }
-?>
+
+/**/

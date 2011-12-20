@@ -150,26 +150,34 @@ class Artemis_Model_PDO_Mysql extends Artemis_Model_Abstract implements Artemis_
 	 */
 	public function where($where = array())
 	{
-		if(!is_array($where))
-		{
-			$this->error = 'WHERE claus must be an array!';
-			return false;
+		try {
+				
+			if(!is_array($where))
+			{
+				//echo $this->error = 'WHERE claus must be an array!';
+			//	return false;
+			throw new Artemis_Model_Exception('WHERE clause must be an array');
+			}
+	
+			foreach($where as $field=>$value)
+			{
+				$q[] = $field . ' = :'.$field;
+			}
+	
+			$this->query .= ' WHERE '.implode(' AND ', $q);
+	
+			foreach($where as $field=>$value)
+			{
+	
+				$this->bindValues[":$field"] = $value;
+			}
+	
+			return $this;
 		}
-
-		foreach($where as $field=>$value)
+		catch (Artemis_model $e)
 		{
-			$q[] = $field . ' = :'.$field;
+			echo $e->getMessage , $e->getLine();
 		}
-
-		$this->query .= ' WHERE '.implode(' AND ', $q);
-
-		foreach($where as $field=>$value)
-		{
-
-			$this->bindValues[":$field"] = $value;
-		}
-
-		return $this;
 	}
 
 	/**

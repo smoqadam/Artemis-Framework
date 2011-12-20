@@ -6,12 +6,9 @@
 * @author : Saeed Moqadam Zade
 */
 
-function clean($str)
-{
-	return stripslashes(htmlentities($str , ENT_QUOTES , 'UTF-8'));		
-}	
 
-class Artemis_Template
+
+class Artemis_Template extends  Artemis_Object
 {
 	/**
 	* vars 
@@ -85,10 +82,10 @@ class Artemis_Template
 	* 
 	* @param string Page Title 
 	* @param bool true to return with layout
-	* @return content
+	* @return render view 
 	* @access public
 	*/
-	public function view($title ='', $tp = true)
+	public function render($title ='', $tp = true)
 	{
 		//get action called view
 		$b = debug_backtrace();
@@ -97,14 +94,16 @@ class Artemis_Template
 		//check view exists
 		$view = 'app/views/'.$this->controller.'/'.$action.'.php';
 		if(!file_exists($view))
-			die('404 not Found');
+			throw new Artemis_File_Exception(" File $view Not Found.");
 		
 		ob_start();
 		include($view);
 		if($tp == true )
 		{
 				$this->content = ob_get_clean();
-				echo $this->render();
+				ob_start();
+				include("app/layout/$this->theme/index.php");
+				echo ob_get_clean();
 		}
 		else	
 		{
@@ -112,16 +111,7 @@ class Artemis_Template
 		}
 	}
 	
-	/**
-	* render view in layout
-	*/
-	private function render($title = '')
-	{ 
-		ob_start();
-		include("app/layout/$this->theme/index.php");
-		echo ob_get_clean();
-	}
-	
+
 	/**
 	* Set layout title
 	*
@@ -145,4 +135,13 @@ class Artemis_Template
 	{
 		$this->separator = $s;		
 	}
+	
+	/**
+	 * 
+	 * clean string 
+	 */
+	function c($str)
+	{
+		return stripslashes(htmlentities($str , ENT_QUOTES , 'UTF-8'));		
+	}	
 }

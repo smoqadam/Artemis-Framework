@@ -1,10 +1,10 @@
 <?php
-class Artemis_Model_Exception extends Artemis_Exception
+class Artemis_Plugin_Exeption extends Artemis_Exception
 {
 	function __construct($m)
 	{
 		$message = "<hr>";
-		$message .="Artemis Model Exeption <pre>  $m </pre> "; 
+		$message .="Artemis Plugin Exeption <pre>  $m </pre> "; 
 		$message .= "<hr>";
 		parent::__construct($message);
 	}

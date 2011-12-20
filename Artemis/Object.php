@@ -8,13 +8,12 @@
  
 class Artemis_Object
 {
-
-	function Object()
-	{
- 
-	}
 	
-
+	
+	/**
+	 * destroy chid class on destruct
+	 * 
+	 */
 	function __destruct()
 	{
 		unset($this);	

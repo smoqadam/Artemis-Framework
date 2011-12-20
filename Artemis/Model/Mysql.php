@@ -96,20 +96,23 @@ class Artemis_Model_Mysql extends Artemis_Model_Abstract implements Artemis_Mode
 	 */
 	function where($fields)
 	{
-		if(!is_array($fields))
-		{
-			return false;
-		}
-		
-		foreach($fields as $field=>$value)
-		{
-			$where[] = $field.'='.mysql_real_escape_string($value);
-		}
-		$where = implode(' AND ',$where);
-		
-		$this->query .= $where;
-		
-		return $this;
+		 
+			if(!is_array($fields))
+			{
+				echo "<pre>where cluse must be an array</pre> ";
+				//return false;
+				//throw new Exception('where cluse must be an array');
+			}
+			
+			foreach($fields as $field=>$value)
+			{
+				$where[] = $field.'='.mysql_real_escape_string($value);
+			}
+			$where = implode(' AND ',$where);
+			
+			$this->query .= $where;
+			
+			return $this;
 	}
 	
 	/**
@@ -118,6 +121,7 @@ class Artemis_Model_Mysql extends Artemis_Model_Abstract implements Artemis_Mode
 	 */
 	function join($wiht, $field_table1, $field_table2, $cond=array())
 	{
+		
 		if(!empty($cond))
 		{
 			foreach($cond as $k=>$v)

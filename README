@@ -1,1 +1,19 @@
-Artemis Framework first iranian php framework
+Artemis Framework 0.6 first iranian php framework
+
+
+
+version 0.6
+create custom exception handler
+create Common.php for write common functions
+	redirect()
+	_p()  
+	baseUrl() 
+
+version 0.5
+add auto load class
+change loading model loadModel($model_name)
+change loading helper 
+	$ajax = new Artemis_Helper_Ajax(); // hlper location is Artemis/Helper/Ajax.php
+change loading plugin
+	$auth = new Artemis_Plugin_Auth(); // plugin location : Artemis/Plugin/Auth.php
+
