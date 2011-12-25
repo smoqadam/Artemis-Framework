@@ -99,9 +99,7 @@ class Artemis_Model_Mysql extends Artemis_Model_Abstract implements Artemis_Mode
 		 
 			if(!is_array($fields))
 			{
-				echo "<pre>where cluse must be an array</pre> ";
-				//return false;
-				//throw new Exception('where cluse must be an array');
+				throw new Artemis_Model_Exception("WHERE clause must be an array");
 			}
 			
 			foreach($fields as $field=>$value)

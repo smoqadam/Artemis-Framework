@@ -6,18 +6,25 @@
 
 */
 
-class Artemis_Plugin_Auth extends Artemis_Model
+class Artemis_Plugin_Auth 
 {
 	 
 	public $error;
-	protected $table = 'users';
-	
+	protected $table = 'admin';
+	protected $model;
 	private $user_data;
-	
-	function Auth()
+	private $session;
+        /**
+         * 
+         */
+        function Artemis_Plugin_Auth()
 	{
-		session_start();
-		parent::__construct();
+		
+		$model = new Artemis_Model('admin');
+		//$model->table = 'admin';//$this->table;
+		$model->pk = 'username';
+		$this->model = $model;
+		$this->session = new Artemis_Helper_Session();
 	}
 	
 	/**
@@ -27,22 +34,26 @@ class Artemis_Plugin_Auth extends Artemis_Model
 	function login($username , $password)
 	{
 		$password = md5($password);
-		$user = $this->find()->where(array("username"=>$username,"password"=>$password));
+		$user = $this->model->db->find()->where(array("username"=>$username,"password"=>$password));
 		
- 		// print_r($user->numRows());
 		if($user->numRows() > 0 )
 		{
-			$this->set_user_data($user->fetch());
+			$this->set_user_data($user->fetchOne());
 			return true;
 		}else 
 			return false;
 	}
 	
-	/**
-	* Register Method
-	***/
+        /**
+         *
+         * @param type $username
+         * @param type $password
+         * @param type $conf_pass
+         * @return type 
+         */
 	function register($username , $password , $conf_pass)
 	{
+                
 		if($this->has_user($username)) 
 		{
 			$this->errors("Username already exists");
@@ -52,9 +63,9 @@ class Artemis_Plugin_Auth extends Artemis_Model
 		if($password === $conf_pass)
 		{
 			$data = array('username'=>$username,'password'=>md5($password),'role_id'=>3);
-			if($this->create($data))
+			if($this->model->db->create($data))
 			{
-				$this->save();
+				$this->model->db->save();
 				return true;
 			}
 			$this->errors("Can not create");
@@ -66,55 +77,40 @@ class Artemis_Plugin_Auth extends Artemis_Model
 		return false;	
 	}
 	
-	/**
-	* Logout and unset sessions
-	* 
-	*
-	**/
+        /**
+         *
+         * @param type $username 
+         */
 	function logout($username)
 	{
 		unset($_SESSION['user_data']);
 	}
 	
-	/**
-	* check user is logged in
-	* 
-	*
-	**/
+        /**
+         *
+         * @param type $restrict
+         * @return type 
+         */
 	function logged_in($restrict = '1')
 	{
-		if(isset($_SESSION['user_data']) AND $_SESSION['user_data']['role_id'] === $restrict)
-		    return true;
+		if($this->session->is_set('user_data') AND $this->session->get('user_data' ,'role_id') === $restrict)
+                        return true;
 		 
 		 return false;
 	}
 	
-	/** 
-	*  check if exists User
-	*
-	**/
+        /**
+         *
+         * @param type $u
+         * @return type 
+         */
 	function has_user($u)
 	{
-		$user = $this->find()->where(array("username"=>$u));
+		$user = $this->model->db->find()->where(array("username"=>$u));
 		if($user->numRows() > 0)
 			return true;
 		
 		return false;	
-	}
-	
-	/**
-	* check if user has a permission
-	* if user has persmission return tru else false
-	*
-	* 
-	**/
-	function hasPermission($username , $permission = '')
-	{
-		
-		if($this->data('username') === $username) return true;
-		
-		return false;
-		 
 	}
 	
  
@@ -124,10 +120,11 @@ class Artemis_Plugin_Auth extends Artemis_Model
 	**/
 	private function set_user_data($user_data = array())
 	{
+		//_p($user_data);
 		if(empty($user_data)) return false;
 		
 		foreach($user_data as $data)
-			$_SESSION['user_data'] = $data;
+                    $this->session->set('user_data' , $data);
 	}
 	
 	/**
@@ -139,9 +136,10 @@ class Artemis_Plugin_Auth extends Artemis_Model
 	public function data($key)
 	{
 		if(!empty($key))
-			return $_SESSION['user_data'][$key];
-			
-		return $_SESSION['user_data'];	
+			return $this->session->get('user_data');
+                
+                return $this->session->get('user_data');	
+		//return $_SESSION['user_data'];	
 	}
 	
 	/**

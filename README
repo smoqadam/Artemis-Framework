@@ -1,8 +1,13 @@
-Artemis Framework 0.6 first iranian php framework
+Artemis Framework 0.6.4 first iranian php framework
 
-
+version 0.6.4
+add session helper
+optimaze Auth plugin
+template add elem function
+add loadZend() function to load zend library in controller
 
 version 0.6
+add exception
 create custom exception handler
 create Common.php for write common functions
 	redirect()

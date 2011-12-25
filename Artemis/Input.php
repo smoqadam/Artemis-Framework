@@ -1,5 +1,10 @@
 <?php
- 
+/**
+ * 
+ * Filter post and get input
+ * @author Saeed Moqadam
+ *
+ */ 
 class Artemis_Input
 {
 	
@@ -20,7 +25,7 @@ class Artemis_Input
 		$out = array();
 		if($index === NULL AND !empty($_GET))
 		{
-			//if(isset($_GET) )
+			if(isset($_GET) )
 			{
 				foreach ($_GET as $key=>$val)
 				{
@@ -28,6 +33,7 @@ class Artemis_Input
 				}
 				return $out;
 			}
+			else throw new Artemis_Input_Exception('$_GET Not Set');
 		}else
 		{
 			return $this->clean($_GET[$index]);	

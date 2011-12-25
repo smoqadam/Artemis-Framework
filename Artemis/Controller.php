@@ -45,32 +45,31 @@ class Artemis_Controller extends Artemis_Controller_Abstract
 	*/
 	function loadModel($model_name)
 	{
-        /*$file = APP_PATH.'Models/'.strtolower($model_name).'.php';
-        if(!file_exists($file))
-        { 
-            throw new Artemis_Model_Exception("Model $model_name Not found! ");
-        }
-        require $file;
-        $model = new $model_name;
-        $model->db = Artemis_Model::factory($model); 
-        return $model;*/
-		try {
-			
 			$file = APP_PATH.'Models/'.strtolower($model_name).'.php';
 			if(!file_exists($file))
 	        { 
-	            throw new Artemis_Model_Exception("Model $model_name Not found! Please create $model_name.php in App/Models directory  ");
+	            throw new Artemis_Model_Exception("Model $model_name Not found! Please create $model_name.php model in App/Models directory  ");
 	        }
-			require $file;
-        	$model = new $model_name;
-        	$model->db = Artemis_Model::factory($model); 
+			require_once $file;
+        	$model = new $model_name();
+        	 
         	return $model;
-		}
-		catch (Artemis_Model_Exception $e)
-		{
-			echo $e->getMessage() ;
-		}
 	}
 	
+	/**
+         *
+         * @param type $lib
+         * @return lib 
+         */
+	function loadZend($lib)
+	{
+		$file_name = str_replace('Zend_','',$lib);
+		$z = 'Artemis/Helper/Zend/'.$file_name.'.php';
+		if(!file_exists($z)){
+			throw new Artemis_Helper_Exception("$lib Zend Library Not Found! please create a copy of Zend library in Artemis/Helper");
+		}
+		require $z;
+		return new $lib;
+	}
 	
 }

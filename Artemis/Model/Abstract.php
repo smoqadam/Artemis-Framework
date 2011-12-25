@@ -2,6 +2,7 @@
  
 abstract class Artemis_Model_Abstract
 {
+	private $error = array();
 	/**
 	 * 
 	 * Escape string
@@ -12,31 +13,39 @@ abstract class Artemis_Model_Abstract
 		return mysql_real_escape_string($str);
 		
 	}
-	
-	/**
-	 * validate $values according to $validation rules 
-	 *
-	 *  @param array 
-	 * @access private
-	 */
+        
+        /**
+         *
+         * @param type $values
+         * @return type 
+         */
 	public function validate($values)
 	{
 		$rules = $this->validation;
 		 
 		$validate = new Artemis_Helper_Validation();
-
+                
 		$error = $validate->validateFields($values , $rules);
-
+                
 		if(!empty($error))
 		{
-			$this->error = $error;
+			$this->setError($error);
 			return false;
 		}else{
 			return true;
 		}
 	}
+        
+        /**
+         * set error
+         * @param type $k 
+         */
+        function setError($k)
+        {
+            $this->error =  $k;
+        }
 
-	/**
+        /**
 	 * 
 	 * get errors
 	 */

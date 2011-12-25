@@ -36,12 +36,7 @@ class Artemis_Model_PDO_Mysql extends Artemis_Model_Abstract implements Artemis_
 	 */
 	private $query;
 
-	/**
-	 *
-	 * store error
-	 * @var string;
-	 */
-	protected $error;
+
 
 	/**
 	 *
@@ -154,9 +149,7 @@ class Artemis_Model_PDO_Mysql extends Artemis_Model_Abstract implements Artemis_
 				
 			if(!is_array($where))
 			{
-				//echo $this->error = 'WHERE claus must be an array!';
-			//	return false;
-			throw new Artemis_Model_Exception('WHERE clause must be an array');
+				throw new Artemis_Model_Exception('WHERE clause must be an array');
 			}
 	
 			foreach($where as $field=>$value)
@@ -196,7 +189,7 @@ class Artemis_Model_PDO_Mysql extends Artemis_Model_Abstract implements Artemis_
 			}
 			$cond = implode(' AND ',$condition);
 			$this->query .= " INNER JOIN $table ON $table1 = $table2  WHERE $cond ";
-			//$this->bindValues[':join'] = $value;
+			 
 		}else
 		{
 			$this->query .= " INNER JOIN $table ON $table1 = $table2  WHERE $cond ";
@@ -376,7 +369,7 @@ class Artemis_Model_PDO_Mysql extends Artemis_Model_Abstract implements Artemis_
 		}
 		$this->result->execute();
 		//print_r($this->result->errorInfo());
-		// 'Insert Cat';
+		
 	}
 
 
@@ -397,7 +390,7 @@ class Artemis_Model_PDO_Mysql extends Artemis_Model_Abstract implements Artemis_
 
 		$up = implode(',' , $up);
 
-		echo $sql = "UPDATE $this->table SET $up WHERE $this->pk = :$this->pk";
+		$sql = "UPDATE $this->table SET $up WHERE $this->pk = :$this->pk";
 		$this->cu_fields[$this->pk] = $pk_value;
 
 
@@ -409,7 +402,7 @@ class Artemis_Model_PDO_Mysql extends Artemis_Model_Abstract implements Artemis_
 		}
 
 		$this->result->execute();
-			
+		//print_r($this->result->errorInfo());	
 	}
 
 	/**

@@ -1,6 +1,11 @@
 <?php
-
-class Artemis_Config_exception extends Artemis_Exception
+/**
+ * 
+ * 
+ * @author saeed
+ *
+ */
+class Artemis_Config_Exception extends Artemis_Exception
 {
 	
 }

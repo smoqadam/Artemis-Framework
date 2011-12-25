@@ -68,12 +68,23 @@ class Artemis_Template extends  Artemis_Object
 	/**
 	* create elements
 	*/
-	function elem($elem , $vars)
+	function elem($elem , $vars =array())
 	{
-		
+		$file = 'app/views/Elements/'.$elem.'.php'	;
+		if(!file_exists($file))
+		{
+			throw new Artemis_Template_Exception('Element $elem Not Found!.');
+		}
+                if(!empty ($vars))
+                {
+                    foreach($vars as $k=>$v)
+                    {
+                        $this->$k = $v;
+                    }
+                }
 		ob_start();
-		include('app/views/Elements/'.$elem.'.php');
-		$this->{elem.ucfirst($elem)} = ob_get_clean();
+		include($file);
+		$this->{'elem'.ucfirst($elem)} = ob_get_clean();
 		return ob_get_clean();
 	}
 	
@@ -94,7 +105,7 @@ class Artemis_Template extends  Artemis_Object
 		//check view exists
 		$view = 'app/views/'.$this->controller.'/'.$action.'.php';
 		if(!file_exists($view))
-			throw new Artemis_File_Exception(" File $view Not Found.");
+			throw new Artemis_Template_Exception(" View $view Not Found.");
 		
 		ob_start();
 		include($view);

@@ -1,5 +1,8 @@
 <?php
-/**************** Config ********************/
+/**
+ * Config artemis framework
+ */
+
 //root folder
 $config['base'] = '/artemis/';
 
@@ -22,7 +25,7 @@ $config['database'] = 'blog';
 /**
  *  Driver name
  *
- * PDO_Mysql , PDO_Mssql , PDO_Sqllite , ... 
+ * Mysql , PDO_Mysql , PDO_Mssql , PDO_Sqllite , ... 
  * 
  */
 $config['driver'] = 'PDO_Mysql';
@@ -30,6 +33,6 @@ $config['driver'] = 'PDO_Mysql';
 //set default controller
 $config['base_controller'] = 'index';
 
-
+//default theme name
 $config['theme'] = 'default';
 
