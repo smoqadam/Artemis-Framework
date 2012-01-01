@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+body
+{
+	text-align:right;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	
+}
+.main-content
+{
+	padding:25px;	
+}
+.logo
+{
+	width:20%;
+
+	margin-bottom:10px; 
+	float:left;
+	color:#CCC;
+}
+.clearheader {
+height: 5px;
+clear: both;
+}
+.main
+{
+	direction:rtl;
+}
+.footer
+{
+	text-align:center;
+	color:#999;
+ 
+	position: relative;	
+}
+.clearfooter {
+height: 100px;
+clear: both;
+}

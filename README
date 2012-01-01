@@ -1,4 +1,12 @@
-Artemis Framework 0.6.4 first iranian php framework
+Artemis Framework 0.6.5 first iranian php framework
+
+version 0.6.5
+change default theme
+add loadLanguage to controller
+fix render() view`s function
+add isAjax() in input class
+fix PDO_MYSQL lib
+optimize Template engine
 
 version 0.6.4
 add session helper

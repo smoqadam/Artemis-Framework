@@ -17,7 +17,7 @@ define("DS",DIRECTORY_SEPARATOR);
 define("BASE",'');
 define("BASE_URL",$config['base_url']);
 define('APP_PATH' , ROOT.DS.'app/');
-define('IMG_FOLDER' , BASE_URL.'public/image/');
+define('IMG_FOLDER' , BASE_URL.'public/images/');
 define('JS_FOLDER',BASE_URL.'public/js/');
 define('CSS_FOLDER',BASE_URL.'public/css/');
 require 'Artemis/Common.php';

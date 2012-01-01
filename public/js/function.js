@@ -12,16 +12,17 @@ function loadPage(url , target , confirms)
 		$(target).load(url);
 	
 	$('.loading').hide();	*/	
-	
+//	alert(1);
 	if(confirms)
 	{
 		if(confirm(confirms))
 		{
 			$('.loading').show();
 			$.post(url ,{} , function(data)
-			{
-		 
+			{	 
 				$(target).html(data);	
+				
+
 				$('.loading').hide();
 			});
 	
@@ -31,7 +32,7 @@ function loadPage(url , target , confirms)
 		$('.loading').show();
 		$.post(url ,{} , function(data)
 		{
-	 
+ alert(data);
 			$(target).html(data);	
 			$('.loading').hide();
 		});
@@ -50,12 +51,15 @@ function sendForm(url ,  target , frmID  )
 	});
 }
 
-function addcomment(url , div , paramKey , paramValue)
+function del(url , cnf , id)
 {
-		
-}
-
-function sendGet()
-{
-	
+	if(confirm(cnf))
+	{
+		$('.loading').show();
+		$.post(url ,{} , function(data)
+			{	 
+				$('#'+id).hide('highlight','',1000);	
+				$('.loading').hide();
+			});	
+	}
 }

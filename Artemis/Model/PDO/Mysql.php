@@ -177,10 +177,10 @@ class Artemis_Model_PDO_Mysql extends Artemis_Model_Abstract implements Artemis_
 	 * (non-PHPdoc)
 	 * @see Artemis_Model_Interface::join()
 	 */
-	function join($wiht , $field_table1 , $field_table2, $cond = array())
+	function join($with , $field_table1 , $field_table2, $cond = array())
 	{
 		if(empty($cond))
-		$this->query .= " LEFT JOIN $wiht ON $field_table1 = $field_table2 ";
+                    $this->query .= " LEFT JOIN $with ON $field_table1 = $field_table2 ";
 		elseif(is_array($cond) AND !empty($cond))
 		{
 			foreach($cond as $k=>$v)
@@ -188,11 +188,11 @@ class Artemis_Model_PDO_Mysql extends Artemis_Model_Abstract implements Artemis_
 				$condition[] = $k.'='.$v;
 			}
 			$cond = implode(' AND ',$condition);
-			$this->query .= " INNER JOIN $table ON $table1 = $table2  WHERE $cond ";
+			$this->query .= " LEFT JOIN $with ON $field_table1 = $field_table2  WHERE $cond ";
 			 
 		}else
 		{
-			$this->query .= " INNER JOIN $table ON $table1 = $table2  WHERE $cond ";
+			$this->query .= " LEFT JOIN $with ON $field_table1 = $field_table2 WHERE $cond ";
 		}
 
 		return $this;

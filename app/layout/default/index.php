@@ -2,24 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php 
-$this->setSeparator(' | ');  
-
+<link href="<?php echo CSS_FOLDER?>ui/jquery-ui.css" type="text/css" rel="stylesheet" />
+<link href="<?php echo CSS_FOLDER?>style.css" type="text/css" rel="stylesheet" />
+<title>
+<?php 
+$this->setSeparator(' - ');  
 $this->setTitle('Artemis Framework');
-echo $this->title?></title>
+echo $this->title?>
+</title>
 </head>
 
 <body>
-<table width="80%" border="0" align="center" cellpadding="5" cellspacing="0">
-  <tr>
-    <td height="64" bgcolor="#CCCCCC"><h1>Artemis Framework</h1></td>
-  </tr>
-  <tr>
-    <td height="288" valign="top"><?php echo $this->content;?>&nbsp;</td>
-  </tr>
-  <tr>
-    <td height="40" align="center" bgcolor="#CCCCCC">phpro.ir</td>
-  </tr>
-</table>
+<div class="content">
+<div class="logo">
+  <a href="http://artemisframework.com" title="فریم ورک آرتمیس"> <img src="<?php echo IMG_FOLDER?>logo.jpg" /></a>
+</div>
+<div class="clearheader"></div>
+<div class="main ui-widget-content">
+<?php echo $this->content?>
+</div>
+<div class="clearfooter"></div>
+	<div class="footer">
+    	Copyright (c) 2011 - 2012 ,Artemis Framework team.All rights reserved.<br />
+			Powered by Artemis Framework.
+    </div>
+</div>
 </body>
 </html>
