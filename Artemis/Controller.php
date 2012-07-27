@@ -10,8 +10,8 @@
 class Artemis_Controller extends Artemis_Controller_Abstract {
     /*
      * view Object
-     * */
-
+     *
+	  */
     public $view;
     /**
      * modles name
@@ -86,5 +86,4 @@ class Artemis_Controller extends Artemis_Controller_Abstract {
 
         $this->lang = require($file);
     }
-
 }

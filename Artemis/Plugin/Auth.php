@@ -8,25 +8,22 @@
 
 class Artemis_Plugin_Auth 
 {
-	 
 	public $error;
-	protected $table = 'admin';
-	protected $model;
-	private $user_data;
-	private $session;
-        /**
-         * 
-         */
-        function Artemis_Plugin_Auth()
+	protected $table = 'admin', $model;
+	private $user_data, $session;
+
+	/**
+	* 
+	*/
+	function Artemis_Plugin_Auth()
 	{
-		
 		$model = new Artemis_Model('admin');
 		//$model->table = 'admin';//$this->table;
 		$model->pk = 'username';
 		$this->model = $model;
 		$this->session = new Artemis_Helper_Session();
 	}
-	
+
 	/**
 	* Login method 
 	* @access public
@@ -44,13 +41,13 @@ class Artemis_Plugin_Auth
 			return false;
 	}
 	
-        /**
-         *
-         * @param type $username
-         * @param type $password
-         * @param type $conf_pass
-         * @return type 
-         */
+  /**
+	*
+	* @param type $username
+	* @param type $password
+	* @param type $conf_pass
+	* @return type 
+	*/
 	function register($username , $password , $conf_pass)
 	{
                 
@@ -77,10 +74,10 @@ class Artemis_Plugin_Auth
 		return false;	
 	}
 	
-        /**
-         *
-         * @param type $username 
-         */
+  /**
+	*
+	* @param type $username 
+	*/
 	function logout($username)
 	{
 		unset($_SESSION['user_data']);
@@ -99,11 +96,11 @@ class Artemis_Plugin_Auth
 		 return false;
 	}
 	
-        /**
-         *
-         * @param type $u
-         * @return type 
-         */
+  /**
+	*
+	* @param type $u
+	* @return type 
+	*/
 	function has_user($u)
 	{
 		$user = $this->model->db->find()->where(array("username"=>$u));
@@ -112,7 +109,6 @@ class Artemis_Plugin_Auth
 		
 		return false;	
 	}
-	
  
 	/**
 	* set user data in session
