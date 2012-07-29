@@ -8,7 +8,6 @@
  */
 class Artemis_Template extends Artemis_Object
 {
-
     /**
      * vars 
      *
@@ -62,13 +61,15 @@ class Artemis_Template extends Artemis_Object
     /**
      * create elements
      */
-    function elem($elem, $vars =array())
+    function elem($elem, $vars = array())
     {
-        $file = 'app/views/Elements/' . $elem . '.php';
+        $file = ('app/views/Elements/' . $elem . '.php');
+
         if (!file_exists($file))
         {
-            throw new Artemis_Template_Exception('Element $elem Not Found!.');
+            throw new Artemis_Template_Exception("Element {$elem} not found!.");
         }
+
         if (!empty($vars))
         {
             foreach ($vars as $k => $v)
@@ -76,6 +77,7 @@ class Artemis_Template extends Artemis_Object
                 $this->$k = $v;
             }
         }
+
         ob_start();
         include($file);
         $this->{'elem' . ucfirst($elem)} = ob_get_clean();
@@ -91,18 +93,17 @@ class Artemis_Template extends Artemis_Object
         
         ob_start();
         include(APP_PATH . 'views/' . $view . '.php');
+
         if ($tp == true)
         {
             $this->content = ob_get_clean();
-            include("app/layout/$this->theme/index.php");
+            include("app/layout/{$this->theme}/index.php");
             return ob_get_clean();
         }
         else
         {
              return ob_get_clean();
         }
-
-       
     }
 
     /**
@@ -119,20 +120,20 @@ class Artemis_Template extends Artemis_Object
         $this->setTitle($title);
         $b = debug_backtrace();
         $action = ($b[1]['function']);
-
         //check view exists
-        $view = 'app/views/' . $this->controller . '/' . $action . '.php';
+        $view = ('app/views/' . $this->controller . '/' . $action . '.php');
+
         if (!file_exists($view))
-            throw new Artemis_Template_Exception(" View $view Not Found.");
+            throw new Artemis_Template_Exception(" View {$view} not found.");
 
         ob_start();
         include($view);
+
         if ($tp === true)
         {
-
             $this->content = ob_get_clean();
             ob_start();
-            include("app/layout/$this->theme/index.php");
+            include("app/layout/{$this->theme}/index.php");
             echo ob_get_clean();
         }
         else
@@ -173,5 +174,4 @@ class Artemis_Template extends Artemis_Object
     {
         return stripslashes(htmlentities($str, ENT_QUOTES, 'UTF-8'));
     }
-
 }

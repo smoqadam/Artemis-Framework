@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Artemis Framework
 * Router class
@@ -6,7 +7,6 @@
 *  
 * @author : Saeed Moqadam zade
 */
-
 class Artemis_Router
 {
 	
@@ -66,37 +66,33 @@ class Artemis_Router
 	**/
 	private static function getController()
 	{
-		
 		$url = (isset($_GET['artemis'])) ? $_GET['artemis'] : '';	
-		
 		//extract url
 		$parts = explode('/',$url);
- 
 		//set controller
 
-			//if controller file is found
-			if(file_exists(APP_PATH.'controllers/'.$parts[0].'.php'))
-			{
-				self::$controller = ($parts[0]);
-				array_shift($parts);	
-			}
-			//set default controller in config.php
-			else if(file_exists(APP_PATH.'controllers/'.self::$base_controller.'.php'))
-			{
-				self::$controller = self::$base_controller;	
-			}
-			else if(file_exists(APP_PATH.'controllers/index.php'))
-			{
-				 //set index default controller
-				 self::$controller = 'index';
-			}
-			else
-			{
-				throw new Artemis_Exception("Controller 'self::$controller' Not found");	
-			}
-		
+		//if controller file is found
+		if(file_exists(APP_PATH.'controllers/'.$parts[0].'.php'))
+		{
+			self::$controller = ($parts[0]);
+			array_shift($parts);	
+		}
+		//set default controller in config.php
+		else if(file_exists(APP_PATH.'controllers/'.self::$base_controller.'.php'))
+		{
+			self::$controller = self::$base_controller;	
+		}
+		else if(file_exists(APP_PATH.'controllers/index.php'))
+		{
+			 //set index default controller
+			 self::$controller = 'index';
+		}
+		else
+		{
+			throw new Artemis_Exception("Controller 'self::$controller' Not found");	
+		}
+
 		self::$params = $parts;
-		 
 		self::$file = ROOT.DS.'app/controllers/'.self::$controller.'.php';
 	}
 	
@@ -108,9 +104,9 @@ class Artemis_Router
 	*/
 	public static function load()
 	{
-		
 		//check if app controller is exists
 		$appcontroller =  ROOT.DS.'app/controllers'.DS.'AppController.php';
+
 		if(file_exists($appcontroller))
 			include $appcontroller;
 			
@@ -129,7 +125,6 @@ class Artemis_Router
 		$class = ucfirst(self::$controller).'Controller';
 		//create controller object 
 		$controller = new $class();
-		
 	
 		//if action is set in url
 		if(!isset(self::$params[0]) OR !is_callable(array($controller , self::$params[0])))
@@ -142,10 +137,8 @@ class Artemis_Router
 			$action = self::$params[0];	
 			array_shift(self::$params);
 		}
-		
+
 		//execute action
 		call_user_func_array(array($controller,$action), self::$params);
 	}
-	
-
 }

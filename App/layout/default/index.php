@@ -8,22 +8,25 @@
 <?php 
 $this->setSeparator(' - ');  
 $this->setTitle('Artemis Framework');
-echo $this->title?>
+echo $this->title
+?>
 </title>
 </head>
 
 <body>
 <div class="content">
 <div class="logo">
-  <a href="http://artemisframework.com" title="فریم ورک آرتمیس"> <img src="<?php echo IMG_FOLDER?>logo.jpg" /></a>
+  <a href="http://artemisframework.com" title="فریم ورک آرتمیس"> <img src="<?php echo IMG_FOLDER ?>logo.jpg" /></a>
 </div>
 <div class="clearheader"></div>
 <div class="main ui-widget-content">
-<?php echo $this->content?>
+<hr/>
+<?php echo $this->content ?>
+<hr/>
 </div>
 <div class="clearfooter"></div>
-	<div class="footer">
-    	Copyright (c) 2011 - 2012 ,Artemis Framework team.All rights reserved.<br />
+	<div class="footer" align="center">
+    	Copyright (c) 2011-2012, Artemis Framework team. All rights reserved.<br />
 			Powered by Artemis Framework.
     </div>
 </div>

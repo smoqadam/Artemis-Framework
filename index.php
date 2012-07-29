@@ -26,7 +26,8 @@ define('IMG_FOLDER' , BASE_URL.'public/images/');
 define('JS_FOLDER', BASE_URL.'public/js/');
 define('CSS_FOLDER', BASE_URL.'public/css/');
 
-require 'Artemis/Common.php';
+require 'Artemis' . DS . 'Common.php';
+
 /**
 * extract url and load controller and execute action
 */
