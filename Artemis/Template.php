@@ -125,7 +125,7 @@ class Artemis_Template extends Artemis_Object
         if (!file_exists($view))
             throw new Artemis_Template_Exception(" View $view Not Found.");
 
-                    ob_start();
+        ob_start();
         include($view);
         if ($tp === true)
         {

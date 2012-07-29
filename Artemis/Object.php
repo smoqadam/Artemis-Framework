@@ -15,6 +15,6 @@ class Artemis_Object
 	 */
 	function __destruct()
 	{
-		$this = NULL;
+		//$this = NULL;
 	}
 }
