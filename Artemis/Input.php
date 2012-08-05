@@ -7,26 +7,26 @@
  */ 
 class Artemis_Input
 {
-	
-
 	function __construct()
 	{
+
 	}
-        
-        /**
-         *
-         * @return type 
-         */
-        function isAjax()
-        {
-            if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-                    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
-            {
-                return true;
-            }
-            return false;
-        }
-        
+
+  /**
+	*
+	* @return type 
+	*/
+  function isAjax()
+  {
+		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+		{
+			 return true;
+		}
+
+		return false;
+  }
+  
 	/**
 	*
 	* clean and return $_GET request 
@@ -77,9 +77,7 @@ class Artemis_Input
 			return $this->clean($_POST[$index]);	
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Cleaning Input Script
 	 * Copyright 2009 - www.pgmr.co.uk - contact@pgmr.co.uk

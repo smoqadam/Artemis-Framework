@@ -1,10 +1,9 @@
 <?php
+
 /**
  * Artemis Framework
  * common function 
  */
-
- 
 
 set_exception_handler('artemis_ex_handler');
 /**
@@ -14,21 +13,17 @@ set_exception_handler('artemis_ex_handler');
  */
 function artemis_ex_handler($ex)
 {
-	
 	$errorArr = $ex->getTrace();
-	
 	$file = $errorArr[0]['file'];
 	$line = $errorArr[0]['line'];
 	$func = $errorArr[0]['function'];
-	
 	$message = "<hr>";
-	
 	$message .= $ex->getMessage();
 	$message .= 'Exception occured in :';
 	$message .= "<pre>"; 
-	$message .= "File : $file<br>";
-	$message .= "Line : $line<br>";
-	$message .= "Function : $func<br>";
+	$message .= "File : {$file}<br>";
+	$message .= "Line : {$line}<br>";
+	$message .= "Function : {$func}<br>";
 	$message .= "</pre>";
 	$message .= "<hr>";
 	echo  $message, '<br>';
@@ -47,7 +42,7 @@ function __autoload($class)
 	
 	$classPath = implode('/' , $class);
 	if(!file_exists($classPath.'/'.$className))
-		throw new Artemis_Router_Exception("Class $class name not found!");
+		throw new Artemis_Router_Exception("Class {$class} name not found!");
 	include_once($classPath.'/'.$className);
 }
 

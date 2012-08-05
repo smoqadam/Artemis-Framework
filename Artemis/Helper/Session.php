@@ -63,7 +63,6 @@ class Artemis_Helper_Session
      */
     function destroy($key)
     {
-        unset($key);
+		unset($key);
     }
-    
 }

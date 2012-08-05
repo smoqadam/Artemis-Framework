@@ -1,20 +1,14 @@
-
 <?php
 
 class Artemis_Helper_Ajax
 {
-	
-	
 	var $attrib = array();
 	var $jsPath = '';
 	var $loadingImage = '';
-	
 	var $errors = array();
-	
+
 	private static $instance;
-	
-	
-	
+
 	function Ajax()
 	{
 	}
@@ -36,7 +30,6 @@ class Artemis_Helper_Ajax
 								 'target'=>'.result' // continer to chang
 								 'loadPage'=>'', // call js function loadPage or sendForm
 								 'param'=>array('id'=>1));
-					
 	*
 	*
 	*/
@@ -104,9 +97,6 @@ class Artemis_Helper_Ajax
 	/*
 	* Set Option 
 	* 
-	*
-	*
-	*
 	*/
 	function set_option($options)
 	{
@@ -128,13 +118,9 @@ class Artemis_Helper_Ajax
 			else if($key == 'loadPage')
 					{
 						 $function = 'loadPage';
-						 
 					}
 			/*
-			
 				url=>array('controller'=>'home','action'=>send');
-			
-			
 			*/			
 			//set url to send
 			if($key == 'url') 
@@ -154,17 +140,14 @@ class Artemis_Helper_Ajax
 					$url = BASE_URL.$value['controller'].'/'.$value['action'].'/'.$prameter;
 				}   
 			}
-			
-			
+
 			//set target to change
 			if($key == 'target') $target = $value;
 			
 			if($key == 'confirm') $confirm = $value;
-			
-			
+
 		}//end for each
-		
-		 
+
 		 if($function == 'sendForm')
 			 $onclick .= "onclick=\"sendForm('$url' , '$target' , '$frmID');return false;\"";
  		 else if($function == 'loadPage')
@@ -174,7 +157,6 @@ class Artemis_Helper_Ajax
 	}
 	/*
 	*
-	*	 
 	*	$attribs : convert attribs array to formated string
 	*	array("href"=>"target.php" ,"text"=>"Click Here", "class"=>"acls");
 	*	 <a href="target.php" class="acls">Click Here</a>
@@ -200,8 +182,4 @@ class Artemis_Helper_Ajax
 		else
 			echo $loading;	
 	}
-
-	 
-
 }
-

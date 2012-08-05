@@ -1,4 +1,5 @@
 <?php 
+
 /*
 * Artemis Framework
 * 
@@ -8,14 +9,12 @@
  
 class Artemis_Object
 {
-	
-	
 	/**
 	 * destroy chid class on destruct
 	 * 
 	 */
 	function __destruct()
 	{
-		unset($this);	
+		$this = NULL;
 	}
 }
