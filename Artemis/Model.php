@@ -1,4 +1,5 @@
 <?php
+
 /*
 * Artemis Framework
 * AppModel Class
@@ -6,7 +7,6 @@
 * @author : Saeed Moqadam Zede
 *
 */
- 
 class Artemis_Model 
 {
     /**
@@ -15,13 +15,11 @@ class Artemis_Model
     * @var Object
     */
     public $db;
+    public  $pk = 'id';
 
     protected $table = ''; 
-    
     protected $validation;
-    
-    public  $pk = 'id';
-    
+
     function __construct($table = '')
     {
   	   // $this->table = get_class($this);
@@ -29,23 +27,22 @@ class Artemis_Model
 		$vars = get_class_vars($this);
 		$pk = (isset($vars['pk'])) ? $vars['pk'] : 'id';
 		$validation = (isset($vars['validation'])) ? $vars['validation'] : array();
-		
 		$driver = Artemis_Config::get('driver');
 		
 		if(preg_match('/^pdo_.*/i', $driver))
 		{
 			$class = 'Artemis_Model_'.$driver;
-  			$this->db = new $class($table , $pk , $validation);
+			$this->db = new $class($table , $pk , $validation);
 		}
 		elseif(preg_match('/Mysql.*/i' , $driver))
-        {
-		    $class = 'Artemis_Model_Mysql';
-		    $this->db = new $class($table ,$pk  , $validation ); 
-        }
-        else
-        {
-            throw new Artemis_Model_Exception("Driver $diruver Not Found");
-        }
+		{
+			$class = 'Artemis_Model_Mysql';
+			$this->db = new $class($table ,$pk  , $validation ); 
+		}
+		else
+		{
+			throw new Artemis_Model_Exception("Driver $diruver Not Found");
+		}
     }
 	/**
     * load database driver
@@ -59,7 +56,6 @@ class Artemis_Model
 		$vars = get_class_vars($model);
 		$pk = (isset($vars['pk'])) ? $vars['pk'] : 'id';
 		$validation = (isset($vars['validation'])) ? $vars['validation'] : array();
-		
 		$driver = Artemis_Config::get('driver');
 		
 		if(preg_match('/^pdo_.*/i', $driver))
@@ -76,18 +72,14 @@ class Artemis_Model
         {
             throw new Artemis_Model_Exception("Driver $diruver Not Found");
         }
-		
 	}
 
-
-	
     /**
-    *   return child class name
+    *  return child class name
     * 
-     */ 
+    */ 
 	function  __toString()
 	{
 		return get_class($this);
 	}
-    
 }

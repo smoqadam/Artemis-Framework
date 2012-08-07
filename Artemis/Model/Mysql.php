@@ -3,19 +3,13 @@
 class Artemis_Model_Mysql extends Artemis_Model_Abstract implements Artemis_Model_Interface
 {
 	private $table;
-	
 	private $result;
-	
 	private $connection;
-	
 	private $cu_fields;
-	
 	private $query;
-	
 	private $fields;
 	
 	protected $pk = 'id';
-	
 	protected $validation = array();
 	
 	/**
@@ -33,7 +27,6 @@ class Artemis_Model_Mysql extends Artemis_Model_Abstract implements Artemis_Mode
 		$this->connect();
 	}
 	
-	
 	/**
 	 * (non-PHPdoc)
 	 * @see Artemis_Model_Interface::connect()
@@ -50,11 +43,11 @@ class Artemis_Model_Mysql extends Artemis_Model_Abstract implements Artemis_Mode
 			return false;
 		return true;
 	}
-	
-/**
- * (non-PHPdoc)
- * @see Artemis_Model_Interface::set_field_name()
- */
+
+	/**
+	 * (non-PHPdoc)
+	 * @see Artemis_Model_Interface::set_field_name()
+	 */
 	public function set_field_name()
 	{
 		  $q = "select * from $this->table";
@@ -70,8 +63,7 @@ class Artemis_Model_Mysql extends Artemis_Model_Abstract implements Artemis_Mode
 			$i++;
 		}
 	}
-	
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Artemis_Model_Interface::find()
@@ -247,8 +239,7 @@ class Artemis_Model_Mysql extends Artemis_Model_Abstract implements Artemis_Mode
 	{
 		$num = mysql_num_rows(mysql_query($this->query));
 	}
-	
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Artemis_Model_Interface::create()

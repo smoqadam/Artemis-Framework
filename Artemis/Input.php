@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 
  * Filter post and get input
@@ -37,6 +38,7 @@ class Artemis_Input
 	public function get($index = NULL)
 	{
 		$out = array();
+
 		if($index === NULL AND !empty($_GET))
 		{
 			if(isset($_GET) )
@@ -48,7 +50,8 @@ class Artemis_Input
 				return $out;
 			}
 			else throw new Artemis_Input_Exception('$_GET Not Set');
-		}else
+		}
+		else
 		{
 			return $this->clean($_GET[$index]);	
 		}
@@ -64,6 +67,7 @@ class Artemis_Input
 	public function post($index = NULL)
 	{
 		$out = array();
+
 		if($index === NULL AND !empty($_POST))
 		{
 			  foreach ($_POST as $key=>$val)
@@ -86,11 +90,12 @@ class Artemis_Input
 	{
 		if(is_array($str))
 			array_map(array('Input','clean'),$str);
+
 		if(!get_magic_quotes_gpc()) {
 			$str = addslashes($str);
 		}
+
 			$str = strip_tags(htmlspecialchars($str));
 		return $str;
 	}
-	
 }

@@ -9,12 +9,17 @@
  
 class Artemis_Object
 {
+	function __construct()
+	{
+
+	}
+
 	/**
 	 * destroy chid class on destruct
 	 * 
 	 */
 	function __destruct()
 	{
-		//$this = NULL;
+
 	}
 }

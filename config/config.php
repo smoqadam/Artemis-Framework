@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Config artemis framework
+ * Config Artemis framework
  */
 
 //root folder
 $config['base'] = '/artemis/';
 
-$config['base_url'] = 'http://127.0.0.1'.$config['base'];
+$config['base_url'] = ('http://127.0.0.1' . $config['base']);
 
 //server db
 $config['server'] = 'localhost';

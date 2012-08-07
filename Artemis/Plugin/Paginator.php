@@ -1,10 +1,8 @@
 <?php
 
 /*
-*   Artemis Framework                               					  |
+* Artemis Framework
 * 
-*  
-
 */
 class Artemis_Plugin_Paginator
 {
@@ -24,8 +22,7 @@ class Artemis_Plugin_Paginator
 	var $first = 'First';
 	//link css class
 	var $aclass = 'paginate';
-	
-	
+
 	/**
 	* calculate and create pages array
 	*
@@ -38,6 +35,7 @@ class Artemis_Plugin_Paginator
 		$last_page = ceil($total_rows / $rows_per_page);
 		// make sure we are within limits
 		$page_num = (int) $page_num;
+
 		if ($page_num < 1)
 		{
 		   $page_num = 1;
@@ -46,12 +44,13 @@ class Artemis_Plugin_Paginator
 		{
 		   $page_num = $last_page;
 		}
-		$upto = ($page_num - 1) * $rows_per_page;
 
+		$upto = ($page_num - 1) * $rows_per_page;
 		$arr['limit'] =  ' '.$upto.',' . $rows_per_page;
 		 		$this->limit = $upto;
  		$this->offset = $rows_per_page;
 		$arr['current'] = $page_num;
+
 		if ($page_num == 1)
 			$arr['previous'] = $page_num;
 		else
@@ -60,13 +59,14 @@ class Artemis_Plugin_Paginator
 			$arr['next'] = $last_page;
 		else
 			$arr['next'] = $page_num + 1;
+
 		$arr['last'] = $last_page;
 		$arr['info'] = 'Page ('.$page_num.' of '.$last_page.')';
 		$arr['pages'] = $this->get_surrounding_pages($page_num, $last_page, $arr['next']);
 		//$this->lim = $this->limit
 		return $this->pages = $arr;
 	}
-	
+
 	/**
 	* 
 	*
@@ -75,6 +75,7 @@ class Artemis_Plugin_Paginator
 	{
 		$arr = array();
 		$show = 5; // how many boxes
+
 		// at first
 		if ($page_num == 1)
 		{
@@ -87,6 +88,7 @@ class Artemis_Plugin_Paginator
 			}
 			return $arr;
 		}
+
 		// at last
 		if ($page_num == $last_page)
 		{
@@ -98,38 +100,44 @@ class Artemis_Plugin_Paginator
 			}
 			return $arr;
 		}
+
 		// at middle
 		$start = $page_num - $show;
-		if ($start < 1) $start = 0;
+	
+		if ($start < 1)
+			$start = 0;
+
 		for ($i = $start; $i < $page_num; $i++)
 		{
 			array_push($arr, $i + 1);
 		}
+
 		for ($i = ($page_num + 1); $i < ($page_num + $show); $i++)
 		{
 			if ($i == ($last_page + 1)) break;
 			array_push($arr, $i);
 		}
+
 		return $arr;
 	}
-	
+
 	/**
 	* Create paginator links
 	*
 	*/
 	public function createLink()
 	{
-		
 		$pages = $this->pages;
 		$links = $pages['pages'];
+
 		foreach($links as $link)
 		{
 			if($pages['current'] != $link)
 				$out .= "<a href='$this->cur/$link' class='$this->aclass'>$link</a> "	;
 			else	
 				$out .= " <span style='padding:5px'>$link</span> ";
-		}	
-		
+		}
+
 		// create Previus Link
 		//create First Link		
 		if($pages['current'] != 1)
@@ -137,6 +145,7 @@ class Artemis_Plugin_Paginator
 			$out = " <a href='$this->cur/".$pages['previous']."' class='$this->aclass'>$this->prev</a> " . $out;
 			$out = " <a href='$this->cur/1' class='$this->aclass'>$this->first</a> " .$out;						
 		}
+
 		//create next Link
 		//create last Link		
 		if($pages['current'] != $pages['last'])
@@ -144,7 +153,7 @@ class Artemis_Plugin_Paginator
 			$out .= " <a href='$this->cur/".$pages['next']."' class='$this->aclass'>$this->next</a> " ;
 			$out .= " <a href='$this->cur/".$pages['last']."' class='$this->aclass'>$this->last</a> " ;
 		}
+
 		return $out;
-		
 	}
 }
